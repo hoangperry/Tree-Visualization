@@ -48,58 +48,77 @@ class BST:
 		return x
 
 	def lrn(self):
-		self.lrnNode(self.root)
+		return self.lrnNode(self.root)
+
 
 	def lrnNode(self, x:Node):
+		retStr = ""
 		if x != None:
-			self.lrnNode(x.left)
-			self.lrnNode(x.right)
+			retStr += self.lrnNode(x.left)
+			retStr += self.lrnNode(x.right)
 			print(str(x.key) + " ")
+			retStr += (str(x.key) + "\n")
+		return retStr
 
 	def lnr(self):
-		self.lnrNode(self.root)
+		return self.lnrNode(self.root)
 
 	def lnrNode(self, x:Node):
+		retStr = ""
 		if x != None:
-			self.lnrNode(x.left)
+			retStr += self.lnrNode(x.left)
+			retStr += (str(x.key) + "\n")
 			print(str(x.key) + " ")
-			self.lnrNode(x.right)
+			retStr += self.lnrNode(x.right)
+		return retStr
 
 	def nlr(self):
-		self.nlrNode(self.root)
+		return self.nlrNode(self.root)
 
 	def nlrNode(self, x:Node):
+		retStr = ""
 		if x != None:
+			retStr += (str(x.key) + "\n")
 			print(str(x.key) + " ")
-			self.nlrNode(x.left)
-			self.nlrNode(x.right)
+			retStr += self.nlrNode(x.left)
+			retStr += self.nlrNode(x.right)
+		return retStr
 
 	def nrl(self):
-		self.nrlNode(self.root)
+		return self.nrlNode(self.root)
 
 	def nrlNode(self, x:Node):
+		retStr = ""
 		if x != None:
+			retStr += (str(x.key) + "\n")
 			print(str(x.key) + " ")
-			self.nrlNode(x.right)
-			self.nrlNode(x.left)
+			retStr += self.nrlNode(x.right)
+			retStr += self.nrlNode(x.left)
+		return retStr
 			
 	def rnl(self):
-		self.rnlNode(self.root)
+		return self.rnlNode(self.root)
 
 	def rnlNode(self, x:Node):
+		retStr = ""
 		if x != None:
-			self.rnlNode(x.right)
+			retStr += self.rnlNode(x.right)
+			retStr += (str(x.key) + "\n")
 			print(str(x.key) + " ")
-			self.rnlNode(x.left)
+			retStr += self.rnlNode(x.left)
+		return retStr
 
 	def rln(self):
-		self.rlnNode(self.root)
+		return self.rlnNode(self.root)
 
 	def rlnNode(self, x:Node):
+		retStr = ""
 		if x != None:
-			self.rlnNode(x.right)
-			self.rlnNode(x.left)
+			retStr += self.rlnNode(x.right)
+			retStr += self.rlnNode(x.left)
+			retStr += (str(x.key) + "\n")
 			print(str(x.key) + " ")
+		return retStr
 			
 	def get(self, key) -> Node:
 		return self.getNode(self.root, key)
@@ -207,6 +226,18 @@ class BST:
 	def contains(self, key) -> bool:
 		return self.getNode(self.root, key) != None
 
+	def containsID(self, id) -> bool:
+		return self.getNodeWithID(self.root, id) != None
+
+	def getNodeWithID(self, x:Node, id) -> Node:
+		if x != None:
+			if id < x.key.id:
+				return self.getNodeWithID(x.left, id)
+			elif id > x.key.id:
+				return self.getNodeWithID(x.right, id)
+			return x
+		return None
+
 	def deleteMin(self):
 		self.root = self.deleteMinNode(self.root)
 
@@ -254,11 +285,19 @@ class BST:
 		for i in inp:
 			self.root = self.deleteNode(self.root, i)
 
-	def getPredecessor(self, x:Node) -> Node:
-		return self.maxNode(x.left)
+	def getPredecessor(self, key) -> Node:
+		if self.get(key) == None:
+			return None
+		if self.get(key).left != None:
+			return self.maxNode(self.get(key).left)
+		return None
 
-	def getSuccessor(self, x:Node) -> Node:
-		return self.minNode(x.right)
+	def getSuccessor(self, key) -> Node:
+		if self.get(key) == None:
+			return None
+		if self.get(key).right != None:
+			return self.minNode(self.get(key).right)
+		return None
 
 	def updateName(self, id:int, name:str):
 		self.updateNameNode(self.root, id, name)
@@ -313,32 +352,10 @@ class BST:
 				self.updateScoreNode(x.right, id, score)
 			else:
 				x.key.score = score
-	#
-	# def update(self, id, name=None, birthday=None, score=None, credit=None):
-	# 	if name != None:
 
-
-	# def delete1(self, key):
-	# 	self.root = self.delete1Node(self.root, key)
-
-	# def delete1Node(self, x, key):
-	# 	if x == None:
-	# 		return None
-	# 	if key < x.key:
-	# 		x.left = self.delete1Node(x.left, key)
-	# 	if key > x.key:
-	# 		x.right = self.delete1Node(x.right, key)
-	# 	else:
-	# 		if x.right == None:
-	# 			return x.left
-	# 		if x.left == None:
-	# 			return x.right
-	# 		t = x
-	# 		x = self.maxNode(t.left)
-	# 		x.left = self.deleteMaxNode(t.left)
-	# 		x.right = t.right
-	# 	x.size = self.sizeNode(x.left) + self.sizeNode(x.right) + 1
-	# 	return x
+###########################
+# AVL
+###########################
 
 class AVL:
 	def __init__(self):
@@ -444,61 +461,91 @@ class AVL:
 		return x
 
 	def lrn(self):
-		self.lrnNode(self.root)
+		return self.lrnNode(self.root)
 
 	def lrnNode(self, x: Node):
+		retStr = ""
 		if x != None:
-			self.lrnNode(x.left)
-			self.lrnNode(x.right)
+			retStr += self.lrnNode(x.left)
+			retStr += self.lrnNode(x.right)
 			print(str(x.key) + " ")
+			retStr += (str(x.key) + "\n")
+		return retStr
 
 	def lnr(self):
-		self.lnrNode(self.root)
+		return self.lnrNode(self.root)
 
 	def lnrNode(self, x: Node):
+		retStr = ""
 		if x != None:
-			self.lnrNode(x.left)
+			retStr += self.lnrNode(x.left)
+			retStr += (str(x.key) + "\n")
 			print(str(x.key) + " ")
-			self.lnrNode(x.right)
+			retStr += self.lnrNode(x.right)
+		return retStr
 
 	def nlr(self):
-		self.nlrNode(self.root)
+		return self.nlrNode(self.root)
 
 	def nlrNode(self, x: Node):
+		retStr = ""
 		if x != None:
+			retStr += (str(x.key) + "\n")
 			print(str(x.key) + " ")
-			self.nlrNode(x.left)
-			self.nlrNode(x.right)
+			retStr += self.nlrNode(x.left)
+			retStr += self.nlrNode(x.right)
+		return retStr
 
 	def nrl(self):
-		self.nrlNode(self.root)
+		return self.nrlNode(self.root)
 
 	def nrlNode(self, x: Node):
+		retStr = ""
 		if x != None:
+			retStr += (str(x.key) + "\n")
 			print(str(x.key) + " ")
-			self.nrlNode(x.right)
-			self.nrlNode(x.left)
+			retStr += self.nrlNode(x.right)
+			retStr += self.nrlNode(x.left)
+		return retStr
 
 	def rnl(self):
-		self.rnlNode(self.root)
+		return self.rnlNode(self.root)
 
 	def rnlNode(self, x: Node):
+		retStr = ""
 		if x != None:
-			self.rnlNode(x.right)
+			retStr += self.rnlNode(x.right)
+			retStr += (str(x.key) + "\n")
 			print(str(x.key) + " ")
-			self.rnlNode(x.left)
+			retStr += self.rnlNode(x.left)
+		return retStr
 
 	def rln(self):
-		self.rlnNode(self.root)
+		return self.rlnNode(self.root)
 
 	def rlnNode(self, x: Node):
+		retStr = ""
 		if x != None:
-			self.rlnNode(x.right)
-			self.rlnNode(x.left)
+			retStr += self.rlnNode(x.right)
+			retStr += self.rlnNode(x.left)
+			retStr += (str(x.key) + "\n")
 			print(str(x.key) + " ")
+		return retStr
 
 	def contains(self, key) -> bool:
 		return self.getNode(self.root, key) != None
+
+	def containsID(self, id) -> bool:
+		return self.getNodeWithID(self.root, id) != None
+
+	def getNodeWithID(self, x:Node, id) -> Node:
+		if x != None:
+			if id < x.key.id:
+				return self.getNodeWithID(x.left, id)
+			elif id > x.key.id:
+				return self.getNodeWithID(x.right, id)
+			return x
+		return None
 
 	def get(self, key) -> Node1:
 		return self.getNode(self.root, key)
@@ -583,11 +630,20 @@ class AVL:
 		for i in inp:
 			self.putBalance(i)
 
-	def getPredecessor(self, x:Node1) -> Node1:
-		return self.maxNode(x.left)
+	def getPredecessor(self, key) -> Node:
+		if self.get(key) == None:
+			return None
+		if self.get(key).left != None:
+			return self.maxNode(self.get(key).left)
+		return None
 
-	def getSuccessor(self, x:Node1) -> Node1:
-		return self.minNode(x.right)
+	def getSuccessor(self, key) -> Node:
+		if self.get(key) == None:
+			return None
+		if self.get(key).right != None:
+			return self.minNode(self.get(key).right)
+		return None
+
 
 	def updateName(self, id:int, name:str):
 		self.updateNameNode(self.root, id, name)
