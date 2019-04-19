@@ -1,18 +1,69 @@
 from tkinter import *
 from Student import Student
 from BST_AVL import BST, AVL
-import subprocess
+import argparse
+import re
+
+parser = argparse.ArgumentParser("""
+    *** BST_AVL tree                                ***
+    *** 502043 (Data Structures and Algorithms)     ***
+    *** Spring 2018-2019 assignment.                ***
+""")
+
+parser.add_argument('-t','--tree',
+                    help="[BST] or [AVL], Example: -t bst", default="bst")
+
+args = parser.parse_args()
+type_of_tree = args.tree
+if(type_of_tree.lower() == "avl"):
+    tree = AVL()
+else:
+    tree = BST()
 
 fields = ('ID', 'Name', 'Birthday', 'Credit', 'Score')
-tree = BST()
-def addBST(entries, cmd, y_pos):
-    clearCmd(cmd, y_pos)
-    cmd.create_text(5, y_pos, text=tree.rln(), anchor='nw', fill="white")
+
+def drawNode(canvas, node, x=250, y=50, pre=None):
+    if node == None:
+        return
+    canvas.create_circle(x, y, 20, fill="white")
+    canvas.create_text(x, y, text=str(node.key.id), anchor='center')
+    hash = int(canvas['width'])/(2**(tree.heightNode(node)+1))
+    print(hash)
+    drawNode(canvas, node.left, x=(x-hash), y=y+50)
+    drawNode(canvas, node.right, x=(x+hash), y=y+50)
+def draw(canvas):
+    pre = None
+
+    canvas.delete("all")
+    list_node = tree.nlrNoPrint()
+    drawNode(canvas, tree.root)
+        # draw()
+        #
+        #     drawNode(canvas, node)
+        #
+        # if node.key.id < pre.key.id:
+        #     x = int(canvas['width'])/(2**tree.heightNode(node))
+        # else:
+        #     x = int(canvas['width']) - int(canvas['width'])/(2**tree.heightNode(node))
+        #
+        # y = 60 * tree.heightNode(node)
+        # canvas.create_circle(x, y, 20, fill="white")
+        # canvas.create_text(x, y, text=str(node.key.id), anchor='center')
+
+def addTree(entries, cmd, y_pos, canvas):
     id = int(entries['ID'].get())
     name = str(entries['Name'].get())
     birthday = str(entries['Birthday'].get())
     credit = int(entries['Credit'].get())
     score = float(entries['Score'].get())
+
+    if(id > 999):
+        cmd.create_text(5, y_pos, text="[ERROR]: ID must be less than 3 digits", anchor='nw', fill="red")
+        return
+
+    if(score > 10):
+        cmd.create_text(5, y_pos, text="[ERROR]: Score must be less than 10", anchor='nw', fill="red")
+        return
 
     if tree.containsID(id):
         tree.updateName(id, name)
@@ -23,17 +74,28 @@ def addBST(entries, cmd, y_pos):
     clearCmd(cmd, y_pos)
     cmd.create_text(5, y_pos, text="Added student: " + str(st), anchor='nw', fill="white")
     tree.put(st)
+    draw(canvas)
 
-def delBST(entries, cmd, y_pos):
+def delTree(entries, cmd, y_pos, canvas):
     id = int(entries['ID'].get())
     name = str(entries['Name'].get())
     birthday = str(entries['Birthday'].get())
     credit = int(entries['Credit'].get())
     score = float(entries['Score'].get())
+
+    if(id > 999):
+        cmd.create_text(5, y_pos, text="[ERROR]: ID must be less than 3 digits", anchor='nw', fill="red")
+        return
+
+    if(score > 10):
+        cmd.create_text(5, y_pos, text="[ERROR]: Score must be less than 10", anchor='nw', fill="red")
+        return
+
     st = Student(id, name, birthday, score, credit)
     clearCmd(cmd, y_pos)
     cmd.create_text(5, y_pos, text="Deleted student: " + str(st), anchor='nw', fill="white")
     tree.delete(st)
+    draw(canvas)
 
 def makeform(root, fields):
     entries = {}
@@ -58,22 +120,6 @@ def makeform(root, fields):
         ent.pack(side = LEFT)
         entries[field] = ent
     return entries
-
-
-class window:
-
-    def __init__(self, parent):
-        self.frame = Frame(parent)
-        self.frame.pack()
-        self.gobutton = Button(self.frame, text="Go", command=self.dircall)
-        self.gobutton.grid(row=0, column=1)
-        self.canvas = Canvas(root, width=100, height=100, bg="white")
-        self.canvas.pack()
-
-    def dircall(self):
-        output = subprocess.call(["dir", "c:"], shell=True)
-        self.canvas.create_text(25, 25, text=output, tags="text")
-
 
 def clearCmd(cmd, y_pos):
     y_pos = 0
@@ -115,6 +161,15 @@ def successor(entries, cmd, y_pos):
     birthday = str(entries['Birthday'].get())
     credit = int(entries['Credit'].get())
     score = float(entries['Score'].get())
+
+    if(id > 999):
+        cmd.create_text(5, y_pos, text="[ERROR]: ID must be less than 3 digits", anchor='nw', fill="red")
+        return
+
+    if(score > 10):
+        cmd.create_text(5, y_pos, text="[ERROR]: Score must be less than 10", anchor='nw', fill="red")
+        return
+
     st = Student(id, name, birthday, score, credit)
 
     clearCmd(cmd, y_pos)
@@ -130,6 +185,15 @@ def predecessor(entries, cmd, y_pos):
     birthday = str(entries['Birthday'].get())
     credit = int(entries['Credit'].get())
     score = float(entries['Score'].get())
+
+    if(id > 999):
+        cmd.create_text(5, y_pos, text="[ERROR]: ID must be less than 3 digits", anchor='nw', fill="red")
+        return
+
+    if(score > 10):
+        cmd.create_text(5, y_pos, text="[ERROR]: Score must be less than 10", anchor='nw', fill="red")
+        return
+
     st = Student(id, name, birthday, score, credit)
 
     clearCmd(cmd, y_pos)
@@ -138,6 +202,17 @@ def predecessor(entries, cmd, y_pos):
         cmd.create_text(5, y_pos, text="Successor is " + str(suc.key), anchor='nw', fill="white")
     else:
         cmd.create_text(5, y_pos, text="This Student doesn't have Predecessor", anchor='nw', fill="white")
+
+def _create_circle(self, x, y, r, **kwargs):
+    return self.create_oval(x-r, y-r, x+r, y+r, **kwargs)
+Canvas.create_circle = _create_circle
+
+def _create_circle_arc(self, x, y, r, **kwargs):
+    if "start" in kwargs and "end" in kwargs:
+        kwargs["extent"] = kwargs["end"] - kwargs["start"]
+        del kwargs["end"]
+    return self.create_arc(x-r, y-r, x+r, y+r, **kwargs)
+Canvas.create_circle_arc = _create_circle_arc
 
 if __name__ == '__main__':
     root = Tk()
@@ -155,10 +230,10 @@ if __name__ == '__main__':
     cmd.pack(side=RIGHT, anchor=N, fill=Y)
     y_pos = 0
 
-    addButton = Button(frame, text='ADD', command=(lambda e=ents:addBST(e, cmd, y_pos)), bg="green", foreground="white")
+    addButton = Button(frame, text='ADD', command=(lambda e=ents:addTree(e, cmd, y_pos, canvas)), bg="green", foreground="white")
     addButton.pack(side=TOP, ipadx=80, ipady=10, anchor=N, fill=X)
 
-    delButton = Button(frame, text='DELETE', command=(lambda e=ents:delBST(e, cmd, y_pos)), bg="red", foreground="black")
+    delButton = Button(frame, text='DELETE', command=(lambda e=ents:delTree(e, cmd, y_pos, canvas)), bg="red", foreground="black")
     delButton.pack(side=TOP, ipadx=80, ipady=10, anchor=N, fill=X)
     subFrame = Frame(frame)
     subFrame.pack(side=TOP)
@@ -187,6 +262,9 @@ if __name__ == '__main__':
     canvas.pack(side=LEFT, anchor=W, fill=Y)
 
 
-
-    canvas.create_oval(300, 300, 600, 600, fill="#BBB", outline="")
+    # canvas.create_line(250, 40, 125, 150)
+    # canvas.create_line(250, 40, 375, 150)
+    # canvas.create_circle(250, 40, 30, fill="white")
+    # canvas.create_circle(125, 150, 30, fill="white")
+    # canvas.create_circle(375, 150, 30, fill="white")
     root.mainloop()

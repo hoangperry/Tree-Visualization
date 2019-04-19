@@ -31,7 +31,21 @@ class BST:
 		if x == None:
 			return 0
 		return x.size
-		
+
+	def height(self) -> int:
+		return  self.heightNode(self.root)
+
+	def heightNode(self, x:Node) -> int:
+		if x == None:
+			return -1
+		else:
+			leftHeight = self.heightNode(x.left)
+			rightHeight = self.heightNode(x.right)
+			if leftHeight > rightHeight:
+				return leftHeight + 1
+			return  rightHeight + 1
+
+
 	def put(self, key):
 		self.root = self.putNode(self.root, key)
 
@@ -83,6 +97,17 @@ class BST:
 			retStr += self.nlrNode(x.left)
 			retStr += self.nlrNode(x.right)
 		return retStr
+
+	def nlrNoPrint(self):
+		return self.nlrNodeNoPrint(self.root)
+
+	def nlrNodeNoPrint(self, x:Node):
+		ret = []
+		if x != None:
+			ret.append(x)
+			ret += self.nlrNodeNoPrint(x.left)
+			ret += self.nlrNodeNoPrint(x.right)
+		return ret
 
 	def nrl(self):
 		return self.nrlNode(self.root)
@@ -495,6 +520,17 @@ class AVL:
 			retStr += self.nlrNode(x.left)
 			retStr += self.nlrNode(x.right)
 		return retStr
+
+	def nlrNoPrint(self):
+		return self.nlrNodeNoPrint(self.root)
+
+	def nlrNodeNoPrint(self, x:Node):
+		ret = []
+		if x != None:
+			ret.append(x)
+			ret += self.nlrNodeNoPrint(x.left)
+			ret += self.nlrNodeNoPrint(x.right)
+		return ret
 
 	def nrl(self):
 		return self.nrlNode(self.root)

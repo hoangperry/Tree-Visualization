@@ -32,7 +32,7 @@ class Student:
 
 
         if score>10:
-            raise ValueError("Credit must less than 10")
+            raise ValueError("Score must less than 10")
 
         self.id = id
         self.name = name
