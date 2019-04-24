@@ -15,7 +15,7 @@ parser.add_argument('-t','--tree',
 
 args = parser.parse_args()
 type_of_tree = args.tree
-if(type_of_tree.lower() == "avl"):
+if type_of_tree.lower() == "avl":
     tree = AVL()
 else:
     tree = BST()
@@ -25,30 +25,20 @@ fields = ('ID', 'Name', 'Birthday', 'Credit', 'Score')
 def drawNode(canvas, node, x=250, y=50, pre=None):
     if node == None:
         return
-    canvas.create_circle(x, y, 20, fill="white")
+    canvas.create_circle(x, y, 20, fill="yellow")
     canvas.create_text(x, y, text=str(node.key.id), anchor='center')
-    hash = int(canvas['width'])/(2**(tree.heightNode(node)+1))
-    print(hash)
-    drawNode(canvas, node.left, x=(x-hash), y=y+50)
-    drawNode(canvas, node.right, x=(x+hash), y=y+50)
-def draw(canvas):
-    pre = None
+    hash = int(canvas['width'])/(2**(tree.heightNode(tree.root)-tree.heightNode(node)+2))
+    if node.left != None:
+        canvas.create_line(x, y, x-hash, y+50)
+    if node.right != None:
+        canvas.create_line(x, y, x+hash, y + 50)
+    drawNode(canvas, node.left, x=(x-hash), y=y+50, pre=node)
+    drawNode(canvas, node.right, x=(x+hash), y=y+50, pre=node)
 
+def draw(canvas):
     canvas.delete("all")
-    list_node = tree.nlrNoPrint()
     drawNode(canvas, tree.root)
-        # draw()
-        #
-        #     drawNode(canvas, node)
-        #
-        # if node.key.id < pre.key.id:
-        #     x = int(canvas['width'])/(2**tree.heightNode(node))
-        # else:
-        #     x = int(canvas['width']) - int(canvas['width'])/(2**tree.heightNode(node))
-        #
-        # y = 60 * tree.heightNode(node)
-        # canvas.create_circle(x, y, 20, fill="white")
-        # canvas.create_text(x, y, text=str(node.key.id), anchor='center')
+
 
 def addTree(entries, cmd, y_pos, canvas):
     id = int(entries['ID'].get())
@@ -73,7 +63,11 @@ def addTree(entries, cmd, y_pos, canvas):
     st = Student(id, name, birthday, score, credit)
     clearCmd(cmd, y_pos)
     cmd.create_text(5, y_pos, text="Added student: " + str(st), anchor='nw', fill="white")
-    tree.put(st)
+    if type_of_tree.lower() == "avl":
+        tree.putBalance(st)
+        print("ss")
+    else:
+        tree.put(st)
     draw(canvas)
 
 def delTree(entries, cmd, y_pos, canvas):
@@ -216,23 +210,29 @@ Canvas.create_circle_arc = _create_circle_arc
 
 if __name__ == '__main__':
     root = Tk()
-    root.title("Demo Binary Search Tree")
-    root.bind('<Escape>', lambda e: root.destroy())
-    menubar = Menu(root)
-    menubar.add_command(label="QUIT", command=root.destroy)
-    root.config(menu=menubar)
+    if type_of_tree.lower() == "avl":
+        root.title("Demo Binary Search Tree")
+    else:
+        root.title("Demo AVL")
 
     frame = Frame(root)
     frame.pack(side=LEFT, anchor=N)
     ents = makeform(frame, fields)
+    root.bind('<Escape>', lambda e: root.destroy())
+
+    menubar = Menu(root)
+    menubar.add_command(label="QUIT", command=root.destroy)
+    root.config(menu=menubar)
+
+
+
 
     cmd = Canvas(root, width=550, bg="black")
     cmd.pack(side=RIGHT, anchor=N, fill=Y)
     y_pos = 0
-
     addButton = Button(frame, text='ADD', command=(lambda e=ents:addTree(e, cmd, y_pos, canvas)), bg="green", foreground="white")
     addButton.pack(side=TOP, ipadx=80, ipady=10, anchor=N, fill=X)
-
+    root.bind('<Return>', lambda e=ents:addTree(e, cmd, y_pos, canvas))
     delButton = Button(frame, text='DELETE', command=(lambda e=ents:delTree(e, cmd, y_pos, canvas)), bg="red", foreground="black")
     delButton.pack(side=TOP, ipadx=80, ipady=10, anchor=N, fill=X)
     subFrame = Frame(frame)

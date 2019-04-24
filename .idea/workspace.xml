@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="26784775-305d-4a23-9d96-94facd6cef17" name="Default Changelist" comment="update 19-4-2019: update run.py">
+    <list default="true" id="26784775-305d-4a23-9d96-94facd6cef17" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BST_AVL.py" beforeDir="false" afterPath="$PROJECT_DIR$/BST_AVL.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
@@ -17,8 +17,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Student.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-379">
-              <caret line="18" column="28" lean-forward="true" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
+            <state relative-caret-position="1241">
+              <caret line="73" column="53" selection-start-line="73" selection-start-column="53" selection-end-line="73" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -26,8 +26,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/run.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="164" column="99" selection-start-line="164" selection-start-column="99" selection-end-line="164" selection-end-column="99" />
+            <state relative-caret-position="259">
+              <caret line="234" column="8" selection-start-line="234" selection-start-column="8" selection-end-line="234" selection-end-column="8" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -38,8 +38,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/Miniconda3/Lib/tkinter/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="2217" column="14" selection-start-line="2217" selection-start-column="8" selection-end-line="2217" selection-end-column="14" />
+            <state relative-caret-position="20485">
+              <caret line="1208" column="8" selection-start-line="1208" selection-start-column="8" selection-end-line="1208" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -47,8 +47,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BST_AVL.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="289" column="23" selection-start-line="289" selection-start-column="23" selection-end-line="289" selection-end-column="23" />
+            <state relative-caret-position="6511">
+              <caret line="383" selection-start-line="383" selection-end-line="383" />
             </state>
           </provider>
         </entry>
@@ -58,6 +58,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>bst</find>
+      <find>delete</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -161,15 +162,28 @@
       <option name="project" value="LOCAL" />
       <updated>1555658427120</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="update 19-4-2019: add GUI">
+      <created>1555683769364</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1555683769364</updated>
+    </task>
+    <task id="LOCAL-00003" summary="update 19-4-2019: Update Feature Draw Tree">
+      <created>1555693570220</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1555693570220</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="22" width="1382" height="754" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.24330357" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4964029" visible="true" weight="0.24330357" />
+      <window_info id="Structure" order="1" sideWeight="0.50359714" side_tool="true" visible="true" weight="0.24330357" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32850242" />
@@ -179,7 +193,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32850242" />
+      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32850242" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32850242" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -208,7 +222,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update 19-4-2019: update run.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="update 19-4-2019: update run.py" />
+    <MESSAGE value="update 19-4-2019: add GUI" />
+    <MESSAGE value="update 19-4-2019: Update Feature Draw Tree" />
+    <option name="LAST_COMMIT_MESSAGE" value="update 19-4-2019: Update Feature Draw Tree" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/.PyCharmCE2019.1/system/python_stubs/-602195739/builtins.py">
@@ -220,29 +236,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Student.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-379">
-          <caret line="18" column="28" lean-forward="true" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
+        <state relative-caret-position="1241">
+          <caret line="73" column="53" selection-start-line="73" selection-start-column="53" selection-end-line="73" selection-end-column="53" />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Miniconda3/Lib/tkinter/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="2217" column="14" selection-start-line="2217" selection-start-column="8" selection-end-line="2217" selection-end-column="14" />
+        <state relative-caret-position="20485">
+          <caret line="1208" column="8" selection-start-line="1208" selection-start-column="8" selection-end-line="1208" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BST_AVL.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="289" column="23" selection-start-line="289" selection-start-column="23" selection-end-line="289" selection-end-column="23" />
+        <state relative-caret-position="6511">
+          <caret line="383" selection-start-line="383" selection-end-line="383" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/run.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="164" column="99" selection-start-line="164" selection-start-column="99" selection-end-line="164" selection-end-column="99" />
+        <state relative-caret-position="259">
+          <caret line="234" column="8" selection-start-line="234" selection-start-column="8" selection-end-line="234" selection-end-column="8" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>

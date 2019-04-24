@@ -152,9 +152,9 @@ class BST:
 		if x == None:
 			return x
 		if key < x.key:
-			self.getNode(x.left, key)
+			return self.getNode(x.left, key)
 		elif key > x.key:
-			self.getNode(x.right, key)
+			return self.getNode(x.right, key)
 		else:
 			return x
 
@@ -418,7 +418,7 @@ class AVL:
 		elif key > x.key:
 			x.right = self.putNode(x.right, key)
 		else:
-			x.ley = key
+			x.key = key
 		x.size = 1 + self.sizeNode(x.left) + self.sizeNode(x.right)
 		x.height = 1 + max(self.heightNode(x.left), self.heightNode(x.right))
 
@@ -431,11 +431,11 @@ class AVL:
 		if x == None:
 			return Node1(key, 1, 0)
 		if key < x.key:
-			x.left = self.putNode(x.left, key)
+			x.left = self.putBalanceNode(x.left, key)
 		elif key > x.key:
-			x.right = self.putNode(x.right, key)
+			x.right = self.putBalanceNode(x.right, key)
 		else:
-			x.ley = key
+			x.key = key
 		x.size = 1 + self.sizeNode(x.left) + self.sizeNode(x.right)
 		x.height = 1 + max(self.heightNode(x.left), self.heightNode(x.right))
 
@@ -482,7 +482,6 @@ class AVL:
 			if self.balanceFactor(x.left) < 0:
 				x.left = self.rotateLeft(x.left)
 			x = self.rotateRight(x)
-
 		return x
 
 	def lrn(self):
@@ -568,11 +567,7 @@ class AVL:
 			print(str(x.key) + " ")
 		return retStr
 
-	def contains(self, key) -> bool:
-		return self.getNode(self.root, key) != None
 
-	def containsID(self, id) -> bool:
-		return self.getNodeWithID(self.root, id) != None
 
 	def getNodeWithID(self, x:Node, id) -> Node:
 		if x != None:
@@ -590,11 +585,17 @@ class AVL:
 		if x == None:
 			return None
 		if key < x.key:
-			self.getNode(x.left, key)
+			return self.getNode(x.left, key)
 		elif key > x.key:
-			self.getNode(x.right, key)
+			return self.getNode(x.right, key)
 		else:
 			return x
+
+	def contains(self, key) -> bool:
+		return self.getNode(self.root, key) != None
+
+	def containsID(self, id) -> bool:
+		return self.getNodeWithID(self.root, id) != None
 
 	def min(self) -> Node1:
 		return self.minNode(self.root)
@@ -655,7 +656,7 @@ class AVL:
 				return x.left
 			else:
 				y = x
-				x = min(y.right)
+				x = self.minNode(y.right)
 				x.right = self.deleteMinNode(y.right)
 				x.left = y.left
 		x.size = 1 + self.sizeNode(x.left) + self.sizeNode(x.right)

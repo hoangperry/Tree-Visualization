@@ -1,0 +1,1 @@
+USAGE: python run.py [bst/avl]
